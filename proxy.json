@@ -1,0 +1,22 @@
+{
+  "/api/*": {
+    "target": "http://localhost:8000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/zuul/api/*": {
+    "target": "http://localhost:8000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/oauth/2.0/*": {
+    "target": "http://openapi.baidu.com",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/server_api*":{
+    "target": "http://vop.baidu.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
