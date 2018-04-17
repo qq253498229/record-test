@@ -22,7 +22,6 @@ export class DoneComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(1)
   }
 
   toBase64() {

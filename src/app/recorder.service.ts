@@ -15,7 +15,6 @@ export class RecorderService {
 
   constructor(private http: HttpClient) {
     this.refresh().subscribe(res => {
-      console.log(res)
       this.token = res.access_token
     })
   }
