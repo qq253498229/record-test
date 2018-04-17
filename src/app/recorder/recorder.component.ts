@@ -1,5 +1,6 @@
 import {Component, OnInit, ElementRef} from '@angular/core';
 import {RecorderService} from "../recorder.service";
+import {AudioApiService} from "../audio-api.service";
 
 declare var HZRecorder: any
 
@@ -7,7 +8,7 @@ declare var HZRecorder: any
   selector: 'app-recorder',
   templateUrl: './recorder.component.html',
   styleUrls: ['./recorder.component.css'],
-  providers: [RecorderService]
+  providers: [RecorderService, AudioApiService]
 
 })
 export class RecorderComponent implements OnInit {
@@ -30,15 +31,6 @@ export class RecorderComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  /**
-   * 播放单挑录音
-   * @param idx
-   */
-  play(idx) {
-    let audio = this.ref.nativeElement.querySelectorAll('audio')[idx]
-    audio.play()
   }
 
   /**

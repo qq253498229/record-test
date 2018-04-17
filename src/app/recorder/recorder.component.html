@@ -17,11 +17,9 @@
   <ul>
     <ng-container *ngFor="let item of audioList;index as i">
       <li>
-        <audio controls hidden></audio>
-
-        <a (click)="play(i)">{{item.result || '...'}}</a>
+        {{item.result || '...'}}
+        <audio controls></audio>
       </li>
-
     </ng-container>
   </ul>
 </div>
