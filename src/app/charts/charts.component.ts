@@ -50,15 +50,14 @@ export class ChartsComponent implements OnInit {
   }
 
   stopWatchVoice() {
-    clearTimeout(this.timer)
+    clearInterval(this.timer)
   }
 
   getVoice() {
-    this.timer = setTimeout(() => {
+    this.timer = setInterval(() => {
       this.voiceSize = this.AudioAPI.getVoiceSize(this.analyser)
       if (this.voiceSize > 0 && this.voiceSize > this.maxSize) this.maxSize = this.voiceSize
       if (this.voiceSize > 0 && this.voiceSize < this.minSize) this.minSize = this.voiceSize
-      this.getVoice()
       console.log(this.voiceSize)
     }, 100)
   }

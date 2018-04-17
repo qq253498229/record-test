@@ -39,7 +39,6 @@ export class AudioApiService {
   getVoiceSize(analyser) {
     const dataArray = new Uint8Array(analyser.frequencyBinCount)
     analyser.getByteFrequencyData(dataArray)
-    // console.log(dataArray)
     const data = dataArray.slice(100, 1000)
     return data.reduce((a, b) => a + b)
   }
