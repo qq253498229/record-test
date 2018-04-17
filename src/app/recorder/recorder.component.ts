@@ -13,8 +13,16 @@ declare var HZRecorder: any
 export class RecorderComponent implements OnInit {
   title = '测试录音';
 
+  /**
+   * 录音列表
+   * @type {any[]}
+   */
   audioList: any[] = []
 
+  /**
+   * 当前录音索引
+   * @type {number}
+   */
   currentAudioIdx: number = 0
 
   constructor(private ref: ElementRef,
@@ -24,11 +32,18 @@ export class RecorderComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * 播放单挑录音
+   * @param idx
+   */
   play(idx) {
     let audio = this.ref.nativeElement.querySelectorAll('audio')[idx]
     audio.play()
   }
 
+  /**
+   * 开始单条录音
+   */
   startRecording() {
     this.audioList.push({})
     this.currentAudioIdx = this.audioList.length - 1
@@ -38,6 +53,9 @@ export class RecorderComponent implements OnInit {
     })
   }
 
+  /**
+   * 结束单条录音
+   */
   stopRecording() {
     let recorder = this.audioList[this.currentAudioIdx]['recorder']
     recorder.stop();
@@ -46,6 +64,10 @@ export class RecorderComponent implements OnInit {
     this.audioToText(this.currentAudioIdx)
   }
 
+  /**
+   * 单条录音转文字
+   * @param {number} idx
+   */
   audioToText(idx: number) {
     // return new FileReader().readAsText(this.recorder.getBlob())
     let myReader: FileReader = new FileReader();
