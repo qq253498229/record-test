@@ -13,10 +13,9 @@ declare var HZRecorder: any
 export class RecorderComponent implements OnInit {
   title = '测试录音';
 
-  audioSrc: any
-  recorder: any
+  audioList: any[] = []
 
-  base64: string
+  currentAudioIdx: number = 0
 
   constructor(private ref: ElementRef,
               private recService: RecorderService) {
@@ -25,29 +24,41 @@ export class RecorderComponent implements OnInit {
   ngOnInit() {
   }
 
-  toBase64() {
-    let myReader: FileReader = new FileReader();
-    myReader.readAsDataURL(this.recorder.getBlob());
-    myReader.onloadend = () => {
-      this.base64 = myReader.result;
-      console.log(this.base64)
-    }
+  play(idx) {
+    let audio = this.ref.nativeElement.querySelectorAll('audio')[idx]
+    audio.play()
   }
 
   startRecording() {
+    this.audioList.push({})
+    this.currentAudioIdx = this.audioList.length - 1
     HZRecorder.get(rec => {
-      this.recorder = rec
-      this.recorder.start()
+      this.audioList[this.currentAudioIdx]['recorder'] = rec
+      this.audioList[this.currentAudioIdx]['recorder'].start()
     })
   }
 
   stopRecording() {
-    this.recorder.stop();
-    let audio = this.ref.nativeElement.querySelector('audio')
-    this.recorder.play(audio)
-    this.toBase64()
-    // console.log(this.recorder.getBlob())
+    let recorder = this.audioList[this.currentAudioIdx]['recorder']
+    recorder.stop();
+    let audios = this.ref.nativeElement.querySelectorAll('audio')
+    recorder.play(audios[this.currentAudioIdx])
+    this.audioToText(this.currentAudioIdx)
   }
+
+  audioToText(idx: number) {
+    // return new FileReader().readAsText(this.recorder.getBlob())
+    let myReader: FileReader = new FileReader();
+    myReader.readAsDataURL(this.audioList[idx]['recorder'].getBlob());
+    myReader.onloadend = () => {
+      let base64 = myReader.result;
+      this.recService.asr(base64, this.audioList[idx]['recorder'].getBlob().size).subscribe(res => {
+        console.log(res)
+        this.audioList[idx]['result'] = res.result
+      })
+    }
+  }
+
 
   upload() {
 
