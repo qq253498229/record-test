@@ -13,7 +13,6 @@ export class ChartsComponent implements OnInit {
 
   timer: any;
 
-  audioContext: any
   analyser: any
   /**
    * 当前音量
