@@ -101,7 +101,7 @@ export class RecorderComponent implements OnInit, OnDestroy {
    * 判断音量是否过低
    */
   checkVoiceSizeLow(voiceSize: number): boolean {
-    return voiceSize < this.maxSize * 0.1
+    return voiceSize < this.maxSize * 0.5
   }
 
   /**
